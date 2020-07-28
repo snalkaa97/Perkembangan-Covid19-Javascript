@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width initial-scale=1.0" />
+  <title>Perkembangan Corona</title>
+  <!-- GLOBAL MAINLY STYLES-->
+  <link href="./assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="./assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+  <link href=".assets/vendors/themify-icons/css/themify-icons.css" rel="stylesheet" />
+  <!-- PLUGINS STYLES-->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+  <!-- THEME STYLES-->
+  <link href="./assets/css/main.min.css" rel="stylesheet" />
+  <style type="text/css">
+    #map {
+      height: 180px;
+    }
+    .backTop {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        display: inline-block;  
+        padding: .5em;
+        margin: 1em;
+        background: rgba(255, 0, 0, 0);
+        border: 1px solid rgba(0, 0, 0, 0.5);
+}
+  </style>
+  <!-- PAGE LEVEL STYLES-->
+</head>
+
+<body class="fixed-navbar">
+  <!-- START HEADER-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">Perkembangan Covid-19</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" href="#" id="indonesia"><i class="fa-fw fa fa-home"></i>Indonesia</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" id="global"><i class="fa-fw fa fa-globe"></i>Global</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div id="indo_dashboard">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 mt-3">
+          <div class="card text-white bg-danger">
+            <div class="card-header" id="nasionalPositif"></div>
+            <div class="card-body">
+              <h5 class="card-title">Positif (Indonesia)</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 mt-3">
+          <div class="card text-white bg-warning">
+            <div class="card-header" id="nasionalPerawatan"></div>
+            <div class="card-body">
+              <h5 class="card-title">Dalam Perawatan (Indonesia)</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 mt-3">
+          <div class="card text-white bg-success">
+            <div class="card-header" id="nasionalSembuh"></div>
+            <div class="card-body">
+              <h5 class="card-title">Sembuh (Indonesia)</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 mt-3">
+          <div class="card text-white bg-info">
+            <div class="card-header" id="nasionalMeninggal"></div>
+            <div class="card-body">
+              <h5 class="card-title">Meninggal (Indonesia)</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="container mt-5 justify-content-center" id="navigasi">
+    <ul class="nav nav-pills">
+    <li class="nav-item">
+        <a class="nav-link active" href="#chart-indo">Chart</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#tabel1">Tabel</a>
+      </li>
+      
+    </ul>
+</div>
+  <div id="global-dashboard"></div>
+
+  <div class="container mt-4" id="chart-indo">
+    <canvas id="myChart"></canvas>
+  </div>
+  
+ 
+  <div id="tabel-indo">
+    <div class="container mt-5">
+      <table class="table table-striped table-bordered table-hover" id="tabel1" cellspacing="0" width="100%">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Provinsi</th>
+            <th>Positif</th>
+            <th>Sembuh</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  
+
+  
+
+  <a class="backTop">Back to Top</a>
+  <!-- END HEADER-->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+  </script>
+  <script src="js/script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+  <script type="text/javascript">
+    var $backToTop = $(".backTop");
+    $backToTop.hide();
+    $(window).on('scroll', function() {
+      if ($(this).scrollTop() > 100) {
+        $backToTop.fadeIn();
+      } else {
+        $backToTop.fadeOut();
+      }
+    });
+
+    $backToTop.on('click', function(e) {
+      $("html, body").animate({scrollTop: 0}, 500);
+    });
+</script>
+</body>
+
+</html>
