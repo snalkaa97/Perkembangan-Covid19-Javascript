@@ -199,7 +199,7 @@ $('#navigasi').html(`
 
   $('#tabel-indo').html(`
   <div class="container mt-5">
-  <table class="table table-striped table-bordered table-hover" id="tabel1" cellspacing="0" width="100%">
+  <table class="table table-borderless" id="tabel1" cellspacing="0" width="100%">
     <thead>
       <tr>
         <th>No</th>
